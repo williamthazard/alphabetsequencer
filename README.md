@@ -1,6 +1,5 @@
 # alphabetsequencer
-Alphabet Sequencer
+Alphabet Sequencer:
 a sequencer for monome crow & druid
 
-play by updating sequins in druid
-see comments for which sequins do what!
+Play by updating sequins in druid. See comments for which sequins do what!
