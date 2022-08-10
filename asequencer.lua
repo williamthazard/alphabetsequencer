@@ -37,6 +37,14 @@ end
 function start_with()
   coro_6 = clock.run(with_event)
 end
+function start_everything()
+  coro_1 = clock.run(notes_event)
+  coro_2 = clock.run(other_event)
+  coro_3 = clock.run(jfa_event)
+  coro_4 = clock.run(jfb_event)
+  coro_5 = clock.run(jfc_event)
+  coro_6 = clock.run(with_event)
+end
 function stop_playing()
   clock.cancel(coro_1)
   clock.cancel(coro_2)
