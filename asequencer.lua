@@ -1,21 +1,21 @@
 ---a sequencer
 s = sequins
-a = s{1, 1, 1, 4} -- voice 1 pitch
-b = s{1/4, 1/4, 1/2} -- voice 1 timing
-c = s{4, 1, 6, 1} -- voice 2 pitch
-d = s{1/2, 1/4, 1/4} -- voice 2 timing
-e = s{4, 4, 6, 4, 6} -- just friends voice 1 pitch
-f = s{1/2, 1/2, 1/2, 1} -- just friends voice 1 timing
-g = s{2, 3, 2} -- just friends voice 1 level
-h = s{4, 6, 4, 6} -- just friends voice 2 pitch
-i = s{1/4, 1} -- just friends voice 2 timing
-j = s{2, 2, 3} -- just friends voice 2 level
-k = s{6, 6, 4} -- just friends voice 3 pitch
-l = s{1/2, 1/4, 1/2} -- just friends voice 3 timing
-m = s{2, 3, 2, 2} -- just friends voice 3 level
-x = s{4, 6, 1, 4} -- w/syn pitch
-y = s{2, 1, 2} -- w/syn timing
-z = s{2, 2, 3} -- w/syn level
+a = s{4, 6, 4, s{6, 8, 1, 11}} -- voice 1 pitch
+b = s{2, 2, 2, 2, 2, 2} -- voice 1 timing
+c = s{4, 1, 6, 1, 6} -- voice 2 pitch
+d = s{2, 2, 2, 2, 2, 2} -- voice 2 timing
+e = s{4, 6, 4, s{11, 1, 8}} -- just friends voice 1 pitch
+f = s{1/16, 1/16, 1/4, 1/4} -- just friends voice 1 timing
+g = s{2, 3, 2, 2, 3, 2, 3} -- just friends voice 1 level
+h = s{4, 6, 4, s{8, 1, 11}} -- just friends voice 2 pitch
+i = s{1/4, 1/4, 1/8, 1/16} -- just friends voice 2 timing
+j = s{2, 2, 3, 2, 2, 3, 2} -- just friends voice 2 level
+k = s{6, 4, 6, 11, 8, 11} -- just friends voice 3 pitch
+l = s{1/2, 1/4, 1/2, 1/16} -- just friends voice 3 timing
+m = s{2, 3, 2, 2, 3, 3, 2} -- just friends voice 3 level
+x = s{4, 6, 1, s{11, 6, 11, 8, 6, 11, 8, 6}} -- w/syn pitch
+y = s{1/2, 1/2, 2, 1.5, 1/2} -- w/syn timing
+z = s{2, 2, 3, 2, 2, 3, 2, 2} -- w/syn level
 function init()
   input[1].mode('clock')
   bpm = clock.tempo  
@@ -23,13 +23,39 @@ function init()
   ii.jf.run_mode(1)
   ii.jf.tick(bpm)
   ii.wsyn.ar_mode(1)
-  ii.wsyn.voices(4)
-  coro_id = clock.run(notes_event)
-          clock.run(other_event)
-          clock.run(jfa_event)
-          clock.run(jfb_event)
-          clock.run(jfc_event)
-          clock.run(with_event)
+  ii.wsyn.voices(4)   
+end
+function start_playing()
+  coro_1 = clock.run(notes_event)
+  coro_2 = clock.run(other_event)
+end
+function start_jf()
+  coro_3 = clock.run(jfa_event)
+  coro_4 = clock.run(jfb_event)
+  coro_5 = clock.run(jfc_event)
+end
+function start_with()
+  coro_6 = clock.run(with_event)
+end
+function stop_playing()
+  clock.cancel(coro_1)
+  clock.cancel(coro_2)
+end
+function stop_jf()
+  clock.cancel(coro_3)
+  clock.cancel(coro_4)
+  clock.cancel(coro_5)
+end
+function stop_with()
+  clock.cancel(coro_6)
+end
+function stop_everything()
+  clock.cancel(coro_1)
+  clock.cancel(coro_2)
+  clock.cancel(coro_3)
+  clock.cancel(coro_4)
+  clock.cancel(coro_5)
+  clock.cancel(coro_6)
 end
 function notes_event()
   while true do
