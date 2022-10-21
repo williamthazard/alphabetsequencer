@@ -7,6 +7,8 @@
 --stop playback on just friends with stop_jf() 
 --stop playback on w/syn with stop_with
 --or stop everything at once with stop_everything()
+--try updating the sequins!
+--see comments below for which sequins do what
 s = sequins
 a = s{4, 6, 4, s{6, 8, 1, 11}} -- voice 1 pitch
 b = s{2, 2, 2, 2, 2, 2} -- voice 1 timing
