@@ -1,4 +1,4 @@
----a sequencer
+---alphabet sequencer
 --start playback for outputs 1-4 with start_playing() 
 --start playback on just friends with start_jf() 
 --start playback on w/syn with start_with() 
